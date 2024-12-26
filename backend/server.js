@@ -41,7 +41,20 @@ app.get("/getallappointment", (req, res) => {
       if (err){ 
            res.json("Fail to fetch");
       }
-       res.send(data);
+      return res.send(data);
+      
+  })
+})
+
+app.post("/checkLogin", (req, res) => {
+  const sql = "SELECT * FROM admin_login WHERE `email` = ? AND `password` = ?";
+ db.query(sql, [ req.body.username,req.body.password], (err, data) => {
+      if (err){ res.json("Fail to fetch"+err); }
+      if(data.length > 0){
+        return res.json("1");
+      } else{
+        return res.json("0");
+      }
       
   })
 })

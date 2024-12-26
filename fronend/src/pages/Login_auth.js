@@ -1,8 +1,54 @@
-import React from 'react'
 
-function login() {
+import axios from 'axios';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Slide, toast } from 'react-toastify';
+
+function Login_auth() {
+    const navigate= useNavigate(); 
+    const [username,setEmail]=useState('');
+  
+    const [password,setPassword]=useState('');
+
+
+
+const handleSubmit = async(e)=>{
+    e.preventDefault();
+    
+        axios.post("http://localhost:8081/checkLogin",{username,password})
+        .then(result=>{
+            
+            if(result.data==="1"){
+                toast.success('Login Successfully', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    theme: "colored",
+                    transition: Slide,
+                    });
+                    navigate("/Dashboard");
+                }else{
+                    toast.error('Login Fail', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        theme: "colored",
+                        transition: Slide,
+                        });
+                }
+              
+            }
+           )
+        .catch(err=>{
+        })
+        
+        
+       
+    
+}
+
   return (
-    <div>	<div className="main-wrapper login-body">
+    <div>
+
+<div className="main-wrapper login-body">
     <div className="container-fluid px-0">
         <div className="row">
         
@@ -25,14 +71,14 @@ function login() {
                                 </div>
                                 <h2>Login</h2>
                                 
-                                <form action="https://preclinic.dreamstechnologies.com/html/template/index.html">
+                                <form  onSubmit={handleSubmit}>
                                     <div className="input-block">
                                         <label >Email <span className="login-danger">*</span></label>
-                                        <input className="form-control" type="text" />
+                                        <input className="form-control" type="text" name='username' value={username} onChange={(e)=>setEmail(e.target.value)}/>
                                     </div>
                                     <div className="input-block">
                                         <label >Password <span className="login-danger">*</span></label>
-                                        <input className="form-control pass-input" type="password" />
+                                        <input className="form-control pass-input" type="password"  name='password' value={password} onChange={(e)=>setPassword(e.target.value)} />
                                         <span className="profile-views feather-eye-off toggle-password"></span>
                                     </div>
                                     <div className="forgotpass">
@@ -50,18 +96,7 @@ function login() {
                                 </form>
                                
                                   
-                                <div className="next-sign">
-                                    <p className="account-subtitle">Need an account?  <a href="register.html">Sign Up</a></p>
-                                    
-                                  
-                                    <div className="social-login">
-                                        <a href="javascript:;" ><img src="assets/img/icons/login-icon-01.svg" alt=""/></a>
-                                        <a href="javascript:;" ><img src="assets/img/icons/login-icon-02.svg" alt=""/></a>
-                                        <a href="javascript:;" ><img src="assets/img/icons/login-icon-03.svg" alt=""/></a>
-                                    </div>
-                                    
-                                    
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -72,8 +107,10 @@ function login() {
             
         </div>
     </div>
-</div></div>
+</div>
+
+    </div>
   )
 }
 
-export default login
+export default Login_auth
