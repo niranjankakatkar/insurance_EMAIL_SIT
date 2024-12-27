@@ -42,7 +42,7 @@ function Home() {
                   <li className="nav-item dropdown has-arrow user-profile-list">
                       <Link to="#" className="dropdown-toggle nav-Link user-Link" data-bs-toggle="dropdown">
                           <div className="user-names">
-                              <h5>Liam Michael </h5>
+                              <h5>SIT ADMIN </h5>
                               <span>Admin</span>
                           </div>
                           <span className="user-img">
